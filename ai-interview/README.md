@@ -1,21 +1,22 @@
 # AI Interview - Real-time AI-Powered Interview Experience
 
-A Next.js application that provides a real-time AI interview experience using speech recognition, text-to-speech, and OpenAI's GPT models for dynamic question generation.
+A Next.js application that provides a real-time AI interview experience using speech recognition, text-to-speech, and Groq's fast Llama3 models for dynamic question generation.
 
 ## Features
 
-🤖 **AI-Powered Questions**: Dynamic question generation using OpenAI's GPT-3.5-turbo
+🤖 **AI-Powered Questions**: Dynamic question generation using Groq's Llama3-8b-8192 model
 🎙️ **Speech Recognition**: Advanced speech-to-text with end-of-turn detection
 🗣️ **Text-to-Speech**: Natural-sounding AI interviewer voice
 📊 **Real-time Feedback**: Live confidence scoring and transcript display
 🎯 **Adaptive Interview**: Questions adapt based on previous responses
 ✨ **Clean UI**: Modern, responsive interface with state-based visual feedback
+⚡ **Fast & Free**: Powered by Groq's lightning-fast inference
 
 ## Prerequisites
 
 - Node.js 18+ 
 - Modern web browser with speech recognition support (Chrome, Edge, Safari)
-- OpenAI API key (get one free at [OpenAI's website](https://platform.openai.com/api-keys))
+- Groq API key (get one FREE at [Groq Console](https://console.groq.com/keys))
 
 ## Getting Started
 
@@ -26,12 +27,12 @@ A Next.js application that provides a real-time AI interview experience using sp
    npm install
    ```
 
-2. **Set up your OpenAI API key:**
+2. **Set up your Groq API key:**
    
    Option A: Environment variable (recommended for development)
    ```bash
    # Create .env.local file
-   echo "NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here" > .env.local
+   echo "NEXT_PUBLIC_GROQ_API_KEY=your_groq_api_key_here" > .env.local
    ```
    
    Option B: Enter during application startup (the app will prompt you)
@@ -53,7 +54,7 @@ A Next.js application that provides a real-time AI interview experience using sp
 - Confidence scoring for speech recognition quality
 
 ### 2. AI Question Generation
-- Powered by OpenAI's GPT-3.5-turbo model
+- Powered by Groq's Llama3-8b-8192 model
 - Context-aware questions based on conversation history
 - Dynamic follow-up questions that reference previous answers
 - Professional interview question types covering:
@@ -82,7 +83,7 @@ Generate Next Question → Repeat (7 questions) → End Interview
 
 - **Frontend**: Next.js 15, React 18, TypeScript
 - **Styling**: Tailwind CSS
-- **AI**: OpenAI GPT-3.5-turbo API
+- **AI**: Groq Llama3-8b-8192 API (FREE!)
 - **Speech**: Web Speech API (SpeechRecognition & SpeechSynthesis)
 - **Build**: ESLint, TypeScript compiler
 
@@ -91,10 +92,10 @@ Generate Next Question → Repeat (7 questions) → End Interview
 ### Environment Variables
 
 ```bash
-# OpenAI API Key (required)
-NEXT_PUBLIC_OPENAI_API_KEY=sk-your-key-here
+# Groq API Key (required) - FREE!
+NEXT_PUBLIC_GROQ_API_KEY=gsk_your-key-here
 # or
-OPENAI_API_KEY=sk-your-key-here
+GROQ_API_KEY=gsk_your-key-here
 ```
 
 ### Speech Recognition Settings
@@ -166,8 +167,8 @@ ai-interview/
    - Try refreshing the page
 
 2. **API Errors**
-   - Verify your OpenAI API key is correct
-   - Check your OpenAI account has available credits
+   - Verify your Groq API key is correct
+   - Check your Groq account has available quota
    - Ensure network connectivity
 
 3. **Audio Issues**
@@ -189,6 +190,7 @@ localStorage.setItem('debug', 'true');
 - For production use, consider implementing server-side API calls
 - Never commit API keys to version control
 - Use environment variables for sensitive configuration
+- Groq provides free tier with generous quotas
 
 ## Contributing
 
@@ -204,7 +206,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-- OpenAI for the GPT API
+- Groq for providing fast, free AI inference
 - Web Speech API contributors
 - Next.js team for the excellent framework
 - Tailwind CSS for the styling system

@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import Groq from 'groq-sdk';
 
 export interface ConversationTurn {
   question: string;
@@ -15,19 +15,19 @@ export class AIInterviewer {
   private conversationHistory: ConversationTurn[] = [];
   private currentQuestionNumber = 0;
   private interviewType = 'general';
-  private openai: OpenAI | null = null;
+  private groq: Groq | null = null;
 
   constructor(interviewType: string = 'general', apiKey?: string) {
     this.interviewType = interviewType;
     
     // Get API key from multiple sources
     const key = apiKey || 
-                (typeof window !== 'undefined' ? (window as typeof window & { OPENAI_API_KEY?: string }).OPENAI_API_KEY : null) ||
-                process.env.NEXT_PUBLIC_OPENAI_API_KEY || 
-                process.env.OPENAI_API_KEY;
+                (typeof window !== 'undefined' ? (window as typeof window & { GROQ_API_KEY?: string }).GROQ_API_KEY : null) ||
+                process.env.NEXT_PUBLIC_GROQ_API_KEY || 
+                process.env.GROQ_API_KEY;
     
     if (key) {
-      this.openai = new OpenAI({
+      this.groq = new Groq({
         apiKey: key,
         dangerouslyAllowBrowser: true
       });
@@ -45,15 +45,15 @@ export class AIInterviewer {
     Start with a warm opening question that helps the candidate feel comfortable.
     Keep your question under 25 words.`;
 
-    if (!this.openai) {
-      console.warn('OpenAI client not initialized, using fallback question');
+    if (!this.groq) {
+      console.warn('Groq client not initialized, using fallback question');
       this.currentQuestionNumber = 1;
       return "Tell me about yourself and what brings you here today.";
     }
 
     try {
-      const response = await this.openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
+      const response = await this.groq.chat.completions.create({
+        model: "llama3-8b-8192",
         messages: [
           {
             role: "system",
@@ -92,8 +92,8 @@ export class AIInterviewer {
       return "Thank you for your thoughtful responses. Do you have any questions for us about the role or company?";
     }
 
-    if (!this.openai) {
-      console.warn('OpenAI client not initialized, using fallback question');
+    if (!this.groq) {
+      console.warn('Groq client not initialized, using fallback question');
       return this.getFallbackQuestion();
     }
 
@@ -116,8 +116,8 @@ export class AIInterviewer {
       .join('\n\n');
 
     try {
-      const response = await this.openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
+      const response = await this.groq.chat.completions.create({
+        model: "llama3-8b-8192",
         messages: [
           {
             role: "system",
@@ -156,13 +156,13 @@ export class AIInterviewer {
   }
 
   async generateAppreciation(answer: string): Promise<string> {
-    if (!this.openai) {
+    if (!this.groq) {
       return this.getFallbackAppreciation();
     }
 
     try {
-      const response = await this.openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
+      const response = await this.groq.chat.completions.create({
+        model: "llama3-8b-8192",
         messages: [
           {
             role: "system",
@@ -211,7 +211,7 @@ export class AIInterviewer {
     this.currentQuestionNumber = 0;
   }
 
-  isOpenAIAvailable(): boolean {
-    return this.openai !== null;
+  isGroqAvailable(): boolean {
+    return this.groq !== null;
   }
 }
