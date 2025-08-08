@@ -21,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {
     // Check if API key is available
-    const envApiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+    const envApiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY || process.env.GROQ_API_KEY;
     if (!envApiKey) {
       setShowApiKeyInput(true);
     } else {
@@ -108,7 +108,7 @@ export default function Home() {
       setErrorMessage('');
       
       // Welcome message
-      await speak("Welcome to your AI-powered interview. I&apos;ll be asking you personalized questions based on your responses. Please speak clearly and take your time. Let&apos;s begin.");
+      await speak("Welcome to your Groq-powered AI interview. I&apos;ll be asking you personalized questions based on your responses using fast Llama3 models. Please speak clearly and take your time. Let&apos;s begin.");
       
       // Generate and ask first question
       const firstQuestion = await aiInterviewerRef.current.generateFirstQuestion();
@@ -118,7 +118,7 @@ export default function Home() {
       
     } catch (error) {
       console.error('Error starting interview:', error);
-      setErrorMessage('Failed to start interview. Please check your API key and try again.');
+      setErrorMessage('Failed to start interview. Please check your Groq API key and try again.');
       setInterviewState('error');
     }
   }, [speechRecognition.isSupported, speak, askQuestion, aiApiKey]);
@@ -224,10 +224,10 @@ export default function Home() {
           {showApiKeyInput && (
             <div className="mb-8">
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">OpenAI API Key Required</h3>
+                <h3 className="text-lg font-semibold text-gray-700 mb-4">Groq API Key Required</h3>
                 <p className="text-gray-600 mb-4">
-                  To enable AI-powered questions, please enter your OpenAI API key. 
-                  You can get one free at <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">OpenAI&apos;s website</a>.
+                  To enable AI-powered questions, please enter your Groq API key. 
+                  You can get one free at <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Groq Console</a>.
                 </p>
                 <div className="flex gap-4">
                   <input
